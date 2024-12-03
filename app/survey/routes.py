@@ -31,7 +31,7 @@ def submit_survey():
         return jsonify({'success': False, 'message': str(e)}), 500
 
 # Route to get a survey by email
-@bp.route('/get_survey_by_email', methods=['POST'])
+@bp.route('/get_survey_by_email', methods=['GET'])
 def get_survey_by_email():
     try:
         email = request.json.get('email')

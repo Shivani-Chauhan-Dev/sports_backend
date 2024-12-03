@@ -7,12 +7,12 @@ from database.database import db
 from . import bp
 
 
-@bp.route('/create_athlete', methods=['POST'])
+@bp.route('/create_athlete', methods=['PUT'])
 def create_athlete():
     try:
         # Check if the user is an admin
-        if 'role' not in session or session['role'] != 'admin':
-            return jsonify({'error': 'Unauthorized: Only admins can create athletes.'}), 403
+        # if 'role' not in session or session['role'] != 'admin':
+            # return jsonify({'error': 'Unauthorized: Only admins can create athletes.'}), 403
 
         data = request.get_json()
         name = data.get('name')
@@ -21,8 +21,8 @@ def create_athlete():
         address = data.get('address')
         alternative_contact = data.get('alternative_contact')
         health_height_desc = data.get('health_height_desc')
-
-        email = session.get('email')  # Assuming email is stored in session
+        
+        email = data.get('email')  # Assuming email is stored in session
 
         # Check if an athlete with the same email already exists
         existing_athlete = Athlete.query.filter_by(email=email).first()

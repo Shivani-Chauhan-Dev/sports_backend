@@ -42,7 +42,8 @@ def add_money():
 
         # Create a new transaction
         transaction = Transaction(
-            transaction_id=str(db.session.get_bind()._get_current_connection().connection_id),  # Generate a unique transaction ID
+            # id=str(uuid.uuid4()),
+            # transaction_id=str(db.session.get_bind()._get_current_connection().connection_id),  # Generate a unique transaction ID
             amount=amount,
             type="credit" if amount > 0 else "debit",
             wallet_id=wallet.id
@@ -76,7 +77,9 @@ def get_wallet_transactions(athlete_id):
 
         return jsonify({
             'success': True,
-            'transactions': [{'transaction_id': t.transaction_id, 'amount': t.amount, 'type': t.type} for t in transactions]
+            # 'transactions': [{'transaction_id': t.transaction_id, 'amount': t.amount, 'type': t.type} for t in transactions]
+            'transactions': [{ 'amount': t.amount, 'type': t.type} for t in transactions]
+
         }), 200
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500

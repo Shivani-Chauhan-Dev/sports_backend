@@ -6,15 +6,20 @@ from sqlalchemy.orm.exc import NoResultFound
 
 
 
-# Controller function to update coach details
-@bp.route('/coach/update', methods=['POST'])
+
+@bp.route('/coach/update', methods=['PUT'])
 def update_coach_details():
     try:
         data = request.get_json()
         email = data.get('email')
         coach_name = data.get('coach_name')
+        coach_phone = data.get("coach_phone")
+        coach_dob = data.get("coach_dob")
+        coach_address = data.get("coach_address")
         domains = data.get('domains')
+        detail_experience = data.get("detail_experience")
         coach_rating = data.get('coach_rating')
+        coach_languages = data.get("coach_languages")
         coach_charges = data.get('coach_charges')
         coach_currency = data.get('coach_currency')
         coach_available = data.get('coach_available')
@@ -22,8 +27,13 @@ def update_coach_details():
         coach = Coach.query.filter_by(email=email).first()
         if coach:
             coach.coach_name = coach_name
+            coach.coach_phone = coach_phone
+            coach.coach_dob = coach_dob
+            coach.coach_address = coach_address
             coach.domains = domains
+            coach.detail_experience = detail_experience
             coach.coach_rating = coach_rating
+            coach.coach_languages = coach_languages
             coach.coach_charges = coach_charges
             coach.coach_currency = coach_currency
             coach.coach_available = coach_available
@@ -34,7 +44,7 @@ def update_coach_details():
     except Exception as error:
         return jsonify({"error": str(error)}), 500
 
-# Controller function to get all coaches
+
 @bp.route('/coaches', methods=['GET'])
 def get_coaches():
     try:
@@ -46,7 +56,7 @@ def get_coaches():
     except Exception as error:
         return jsonify({"error": str(error)}), 500
 
-# Controller function to get coaches by sport ID
+#  get coaches by sport ID
 @bp.route('/coaches/sport/<sport_id>', methods=['GET'])
 def get_coaches_by_sport_id(sport_id):
     try:
@@ -58,7 +68,7 @@ def get_coaches_by_sport_id(sport_id):
     except Exception as error:
         return jsonify({"error": str(error)}), 500
 
-# Controller function to get coach details by coach ID
+# get coach details by coach ID
 @bp.route('/coach/<coach_id>', methods=['GET'])
 def get_coach_details_by_coach_id(coach_id):
     try:
@@ -70,7 +80,7 @@ def get_coach_details_by_coach_id(coach_id):
     except Exception as error:
         return jsonify({"error": str(error)}), 500
 
-# Controller function to toggle coach availability
+# toggle coach availability
 @bp.route('/coach/availability/<coach_id>', methods=['POST'])
 def toggle_availability(coach_id):
     try:
@@ -90,7 +100,7 @@ def toggle_availability(coach_id):
     except Exception as error:
         return jsonify({"error": str(error)}), 500
 
-# Controller function to get available coaches
+# get available coaches
 @bp.route('/coaches/available', methods=['GET'])
 def get_available_coaches():
     try:
@@ -102,7 +112,7 @@ def get_available_coaches():
     except Exception as error:
         return jsonify({"error": str(error)}), 500
 
-# Controller function to update coach rates
+#  update coach rates
 @bp.route('/coach/rates/update/<coach_id>', methods=['POST'])
 def update_coach_rates(coach_id):
     try:

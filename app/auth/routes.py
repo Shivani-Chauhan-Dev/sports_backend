@@ -51,6 +51,7 @@ def signup():
     elif user_type == 'coach':
         new_user = Coach(email=email, password=hashed_password)
         db.session.add(new_user)
+        db.session.commit()
 
     else:
         return jsonify({'error': 'Invalid user type'}), 400
