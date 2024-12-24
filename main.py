@@ -10,6 +10,7 @@ from app.survey import bp as survey_bp
 from app.wallet import bp as wallet_bp
 from app.chat import bp as chat_bp
 from app.auth import bp as auth_bp
+from app.verify_otp import bp as verify_otp_bp
 
 
 # Function to create the Flask app
@@ -39,6 +40,7 @@ def create_app():
     app.register_blueprint(wallet_bp)
     app.register_blueprint(chat_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(verify_otp_bp)
     return app  # Ensure the app is returned so it can be run
 
 # Main block to run the app

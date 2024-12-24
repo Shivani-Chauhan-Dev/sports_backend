@@ -1,13 +1,15 @@
 from flask import Flask, request, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
-from datetime import datetime
+# from datetime import datetime
+import datetime
 from model.athlete import Athlete
 from database.database import db
 from . import bp
+import bcrypt
 
 
-@bp.route('/create_athlete', methods=['PUT'])
+@bp.route('/create_athlete', methods=['POST'])
 def create_athlete():
     try:
         # Check if the user is an admin
@@ -22,7 +24,7 @@ def create_athlete():
         alternative_contact = data.get('alternative_contact')
         health_height_desc = data.get('health_height_desc')
         
-        email = data.get('email')  # Assuming email is stored in session
+        email = data.get('email')  # Assuming email is stored in session/
 
         # Check if an athlete with the same email already exists
         existing_athlete = Athlete.query.filter_by(email=email).first()
@@ -125,3 +127,63 @@ def get_all_athletes():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+
+
+
+@bp.route('/registration',methods=["POST"])
+def create_new_athletes():
+    current_date=str(datetime.datetime.now())
+    data= request.get_json()
+    if data:
+        email = data.get('email')
+        password = data.get('password')
+        name = data.get('name')
+        phone = data.get('phone')
+        dob = data.get('dob')
+        address = data.get('address')
+        detail_health = data.get('detail_health')
+        # alternative_contact = data.get('alternative_contact')
+        # health_height_desc = data.get('health_height_desc')
+        created_at=current_date
+        updated_at=current_date
+        
+
+        if email and password and name and phone and dob and address  and detail_health:
+            existing_user= Athlete.query.filter_by(email=email).first()
+            if existing_user:
+                return jsonify({"message": "User already exists"}), 400
+            else:
+                hashed_password= bcrypt.hashpw(
+                    password.encode("utf-8","ignore"),bcrypt.gensalt()
+                ).decode("utf-8")
+
+                if Athlete.create_athlete(
+                        {
+                        
+                        "email":email,
+                        "password":hashed_password,
+                        "name":name,
+                        "phone":phone,
+                        "dob":dob,
+                        "address":address,
+                        "detail_health":detail_health,
+                        # "alternative_contact":alternative_contact,
+                        # "health_height_desc":health_height_desc,
+                        "created_at":created_at,
+                        "updated_at":created_at
+
+                    }
+                ):
+                    return jsonify({"message": "Athlete created successfully"}), 201
+                else:
+                    return jsonify({"message": "Failed to create athlete"}), 500
+        else:
+            return jsonify({"message": "Missing fields"}), 400
+    else:
+        return jsonify({"message": "No data provided"}), 400 
+
+
+
+
+
