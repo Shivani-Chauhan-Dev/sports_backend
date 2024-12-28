@@ -5,6 +5,7 @@ import bcrypt
 from database.database import db
 from . import bp
 from sqlalchemy.orm.exc import NoResultFound
+from app.auth.routes import token_required ,secret_key
 
 
 
@@ -51,7 +52,8 @@ def update_coach_details():
         return jsonify({"error": str(error)}), 500
 
 
-@bp.route('/coaches', methods=['GET'])
+@bp.route('/coaches', methods=['GET'],endpoint="get_coaches")
+@token_required  
 def get_coaches():
     try:
         coaches = Coach.query.all()
@@ -75,7 +77,8 @@ def get_coaches_by_sport_id(sport_id):
         return jsonify({"error": str(error)}), 500
 
 # get coach details by coach ID
-@bp.route('/coach/<coach_id>', methods=['GET'])
+@bp.route('/coach/<coach_id>', methods=['GET'],endpoint="get_coach_id")
+@token_required
 def get_coach_details_by_coach_id(coach_id):
     try:
         coach = Coach.query.get(coach_id)
@@ -199,7 +202,7 @@ def coach_registration():
         else:
             return jsonify({"message": "Missing fields"}), 400
     else:
-        return jsonify({"message": "No data provided"}),
+        return jsonify({"message": "No data provided"}), 
                     
                     
 

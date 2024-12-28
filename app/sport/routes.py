@@ -4,11 +4,14 @@ from sqlalchemy.exc import IntegrityError
 from model.sport import Sport
 from database.database import db
 from . import bp
+from app.auth.routes import token_required,secret_key
 
 
 
 
-@bp.route('/create_sport', methods=['POST'])
+
+@bp.route('/create_sport', methods=['POST'],endpoint="create_sport")
+@token_required
 def create_sport():
     try:
         data = request.get_json()
@@ -32,7 +35,8 @@ def create_sport():
         return jsonify({'success': False, 'message': str(e)}), 500
 
 # Route to get sports by name
-@bp.route('/get_sports/<string:sport_name>', methods=['GET'])
+@bp.route('/get_sports/<string:sport_name>', methods=['GET'],endpoint="getsport_by_name")
+@token_required
 def get_sports_by_name(sport_name):
     try:
         # Find sports by name (case-insensitive)
@@ -46,7 +50,8 @@ def get_sports_by_name(sport_name):
         return jsonify({'success': False, 'message': str(e)}), 500
 
 # Route to get all sports
-@bp.route('/get_all_sports', methods=['GET'])
+@bp.route('/get_all_sports', methods=['GET'],endpoint="get_all_sports")
+@token_required
 def get_all_sports():
     try:
         sports = Sport.query.all()
@@ -59,7 +64,8 @@ def get_all_sports():
         return jsonify({'success': False, 'message': str(e)}), 500
 
 # Route to get a sport by ID
-@bp.route('/get_sport/<int:id>', methods=['GET'])
+@bp.route('/get_sport/<int:id>', methods=['GET'],endpoint="getsport_by_id")
+@token_required
 def get_sport_by_id(id):
     try:
         sport = Sport.query.get(id)
@@ -72,7 +78,8 @@ def get_sport_by_id(id):
         return jsonify({'success': False, 'message': str(e)}), 500
 
 # Route to update a sport by ID
-@bp.route('/update_sport/<int:id>', methods=['PUT'])
+@bp.route('/update_sport/<int:id>', methods=['PUT'],endpoint="update_sports")
+@token_required
 def update_sport_by_id(id):
     try:
         data = request.get_json()
@@ -90,7 +97,8 @@ def update_sport_by_id(id):
         return jsonify({'success': False, 'message': str(e)}), 500
 
 # Route to delete a sport by ID
-@bp.route('/delete_sport/<int:id>', methods=['DELETE'])
+@bp.route('/delete_sport/<int:id>', methods=['DELETE'],endpoint="delete_sport")
+@token_required
 def delete_sport_by_id(id):
     try:
         sport = Sport.query.get(id)

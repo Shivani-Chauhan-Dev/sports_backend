@@ -5,20 +5,28 @@ from model.coach import Coach
 from database.database import db
 from . import bp
 from sqlalchemy.orm.exc import NoResultFound
+from app.auth.routes import token_required, secret_key
+import jwt
 
 
-
-@bp.route('/create_review', methods=['POST'])
+@bp.route('/create_review', methods=['POST'],endpoint="create_review")
+@token_required
 def create_review():
     try:
         data = request.get_json()
-        athlete_id = data.get('athlete_id')
+        auth_header = request.headers.get("Authorization")
+        payload = auth_header.split(" ")[1]
+        # print(payload)
+        token = jwt.decode(payload, secret_key, algorithms=["HS256"])
+        # print(token)
+        ath_id = token["id"]
+        athlete_id = ath_id
         coach_id = data.get('coach_id')
 
         # Check if athlete_id exists
-        athlete = Athlete.query.get(athlete_id)
-        if not athlete:
-            return jsonify({'success': False, 'message': 'Athlete not found'}), 404
+        # athlete = Athlete.query.get(athlete_id)
+        # if not athlete:
+        #     return jsonify({'success': False, 'message': 'Athlete not found'}), 404
 
         # Check if coach_id exists
         coach = Coach.query.get(coach_id)
@@ -41,7 +49,8 @@ def create_review():
         return jsonify({'success': False, 'message': str(e)}), 500
 
 # Route to get all reviews
-@bp.route('/get_all_reviews', methods=['GET'])
+@bp.route('/get_all_reviews', methods=['GET'],endpoint="get_review")
+@token_required
 def get_all_reviews():
     try:
         reviews = Review.query.all()
@@ -54,7 +63,8 @@ def get_all_reviews():
         return jsonify({'success': False, 'message': str(e)}), 500
 
 # Route to get review by ID
-@bp.route('/get_review/<int:id>', methods=['GET'])
+@bp.route('/get_review/<int:id>', methods=['GET'],endpoint="get_review_by_id")
+@token_required
 def get_review_by_id(id):
     try:
         review = Review.query.get(id)
@@ -67,7 +77,8 @@ def get_review_by_id(id):
         return jsonify({'success': False, 'message': str(e)}), 500
 
 # Route to update review by ID
-@bp.route('/update_review/<int:id>', methods=['PUT'])
+@bp.route('/update_review/<int:id>', methods=['PUT'],endpoint="update_review")
+@token_required
 def update_review_by_id(id):
     try:
         data = request.get_json()
@@ -85,7 +96,8 @@ def update_review_by_id(id):
         return jsonify({'success': False, 'message': str(e)}), 500
 
 # Route to delete review by ID
-@bp.route('/delete_review/<int:id>', methods=['DELETE'])
+@bp.route('/delete_review/<int:id>', methods=['DELETE'],endpoint="delete_review_by_id")
+@token_required
 def delete_review_by_id(id):
     try:
         review = Review.query.get(id)

@@ -166,7 +166,7 @@ def get_service(domains):
         output=[]
         for allservice in getservice:
             ratings =  Review.query.filter_by(coach_id=allservice.id).all()
-            avg_rating = sum(rating.rating for rating in ratings) / len(ratings) if ratings else None
+            # avg_rating = sum(rating.rating for rating in ratings) / len(ratings) if ratings else None
             
 
             service_data = {

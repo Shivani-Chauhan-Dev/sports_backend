@@ -5,6 +5,7 @@ from sqlalchemy.exc import IntegrityError
 import datetime
 from model.athlete import Athlete
 from database.database import db
+from app.auth.routes import token_required,secret_key
 from . import bp
 import bcrypt
 
@@ -62,7 +63,8 @@ def create_athlete():
 
 
 # Controller function to update athlete details
-@bp.route('/update_athlete', methods=['PUT'])
+@bp.route('/update_athlete', methods=['PUT'],endpoint="update_athlete")
+@token_required
 def update_athlete_details():
     try:
         data = request.get_json()
@@ -106,7 +108,8 @@ def update_athlete_details():
 
 
 # Controller function to get all athletes
-@bp.route('/get_all_athletes', methods=['GET'])
+@bp.route('/get_all_athletes', methods=['GET'],endpoint="get_athelete")
+@token_required
 def get_all_athletes():
     try:
         athletes = Athlete.query.all()

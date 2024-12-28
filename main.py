@@ -11,6 +11,7 @@ from app.wallet import bp as wallet_bp
 from app.chat import bp as chat_bp
 from app.auth import bp as auth_bp
 from app.verify_otp import bp as verify_otp_bp
+from app.image import bp as image_bp
 
 
 # Function to create the Flask app
@@ -41,9 +42,10 @@ def create_app():
     app.register_blueprint(chat_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(verify_otp_bp)
+    app.register_blueprint(image_bp)
     return app  # Ensure the app is returned so it can be run
-
+app = create_app() 
 # Main block to run the app
 if __name__ == '__main__':
-    app = create_app()  # Create the app
+    # app = create_app()  # Create the app
     app.run(debug=True, port=5004)  # Run the app on port 5004
