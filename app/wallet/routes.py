@@ -37,6 +37,8 @@ def add_money():
         if not wallet:
             wallet = Wallet(athlete_id=athlete.id)
             db.session.add(wallet)
+            db.session.commit()
+
 
         wallet.amount += amount
 

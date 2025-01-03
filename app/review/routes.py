@@ -57,8 +57,29 @@ def get_all_reviews():
 
         if not reviews:
             return jsonify({'success': False, 'message': 'No reviews found'}), 404
+        
+        # Extract unique athlete IDs from reviews
+        athlete_ids = {review.athlete_id for review in reviews}
 
-        return jsonify({'success': True, 'reviews': [{'id': review.id, 'athlete_id': review.athlete_id, 'coach_id': review.coach_id, 'rating': review.rating, 'comment': review.comment} for review in reviews]}), 200
+        # Query all athletes in one go
+        athletes = Athlete.query.filter(Athlete.id.in_(athlete_ids)).all()
+
+        # Create a mapping of athlete_id to athlete_name
+        athlete_map = {athlete.id: athlete.name for athlete in athletes}
+
+        reviews_with_athlete_names = [{
+            'id': review.id,
+            'athlete_id': review.athlete_id,
+            'athlete_name': athlete_map.get(review.athlete_id),  # Include the athlete name
+            'coach_id': review.coach_id,
+            'rating': review.rating,
+            'comment': review.comment
+        } for review in reviews]
+
+        return jsonify({'success': True, 'reviews': reviews_with_athlete_names}), 200
+
+        # return jsonify({'success': True, 'reviews': [{'id': review.id, 'athlete_id': review.athlete_id, 'coach_id': review.coach_id, 'rating': review.rating, 'comment': review.comment} for review in reviews]}), 200
+        
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
@@ -111,3 +132,6 @@ def delete_review_by_id(id):
         return jsonify({'success': True, 'message': 'Review deleted successfully'}), 200
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
+    
+
+
