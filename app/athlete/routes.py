@@ -8,7 +8,7 @@ from database.database import db
 from app.auth.routes import token_required,secret_key
 from . import bp
 import bcrypt
-
+import jwt
 
 @bp.route('/create_athlete', methods=['POST'])
 def create_athlete():
