@@ -187,6 +187,48 @@ def create_new_athletes():
         return jsonify({"message": "No data provided"}), 400 
 
 
+@bp.route("/profile", methods=["PUT"], endpoint="edit_athelete_profile")
+@token_required
+def edit_athelete_profile():
+    current_date=str(datetime.datetime.now())
+    auth_header = request.headers.get('Authorization')
+    payload = auth_header.split(" ")[1]
+    token = jwt.decode(payload, secret_key, algorithms=['HS256'])
+
+    athelete_id = token["id"]
+    atheletes = Athlete.query.get(athelete_id)
+
+    if atheletes:
+        data=request.get_json()
+        if data.get("email") != "":
+            atheletes.email = data.get("email", atheletes.email)
+        if data.get("name") != "":
+            atheletes.name = data.get("name", atheletes.name)
+        if data.get("phone") != "":
+            atheletes.phone = data.get("phone", atheletes.phone)
+        if data.get("dob") != "":
+            atheletes.dob = data.get("dob", atheletes.dob)
+        if data.get("address") != "":
+            atheletes.address = data.get("address", atheletes.address)
+        if data.get("detail_health") != "":
+            atheletes.detail_health = data.get("detail_health",atheletes.detail_health)
+        if data.get("password") != "":
+            password = data.get("password")
+            hashed_password = bcrypt.hashpw(
+                password.encode("utf-8", "ignore"),
+                bcrypt.gensalt()
+            ).decode("utf-8")
+            atheletes.password = hashed_password
+        atheletes.lastupdated=current_date
+        try:
+            db.session.commit()
+            return jsonify({"message": "athelete updated successfully"}), 200
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({"message": "Failed to update user"}), 500
+    else:
+        return jsonify({"message": "athelete not found"}), 404
+
 
 
 
