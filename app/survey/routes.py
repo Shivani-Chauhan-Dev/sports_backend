@@ -12,13 +12,15 @@ def submit_survey():
         data = request.get_json()
         email = data.get('email')
         budget = data.get('budget')
-        charge_method = data.get('chargeMethod')
-        communication_method = data.get('communicationMethod')
+        charge_method = data.get('charge_method')
+        communication_method = data.get('communication_method')
 
+        print(email,budget,charge_method,communication_method)
         # Check if athlete with the given email exists
         athlete = Athlete.query.filter_by(email=email).first()
         if not athlete:
             return jsonify({'success': False, 'message': 'Athlete not found'}), 404
+        
 
         # Create a new survey entry
         survey = Survey(email=email, budget=budget, charge_method=charge_method, communication_method=communication_method)
