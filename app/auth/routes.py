@@ -12,6 +12,8 @@ import jwt
 from itsdangerous import URLSafeTimedSerializer
 import datetime
 from model.review import Review
+from datetime import datetime, timedelta
+import random
 
 
 # genratye token
@@ -188,4 +190,99 @@ def get_service(domains):
 
 
 
+
+
+
+
+def generate_sample_data():
+    """Generate sample earnings data for the week."""
+    # Sample data points for each day (high and low ranges)
+    daily_ranges = {
+        'SUN': (400, 580),
+        'MON': (400, 550),
+        'TUE': (250, 550),
+        'WED': (280, 380),
+        'THU': (30, 400),
+        'FRI': (30, 200),
+        'SAT': (50, 320)
+    }
+    
+    # Generate two series of data (as shown in the pink and red lines)
+    series1 = []
+    series2 = []
+    
+    # Get current date and calculate the start of the week (Sunday)
+    today = datetime.now()
+    start_of_week = today - timedelta(days=today.weekday() + 1)
+    
+    for i, (day, (min_val, max_val)) in enumerate(daily_ranges.items()):
+        date = start_of_week + timedelta(days=i)
+        date_str = date.strftime('%Y-%m-%d')
+        
+        series1.append({
+            'date': date_str,
+            'day': day,
+            'value': round(random.uniform(min_val * 0.8, max_val * 0.8), 2)
+        })
+        
+        series2.append({
+            'date': date_str,
+            'day': day,
+            'value': round(random.uniform(min_val, max_val), 2)
+        })
+    
+    return {
+        'lower_series': series1,
+        'upper_series': series2
+    }
+
+@bp.route('/api/earnings', methods=['GET'])
+def get_earnings():
+    """API endpoint to get weekly earnings statistics."""
+    try:
+        data = generate_sample_data()
+        return jsonify({
+            'status': 'success',
+            'data': data,
+            'graphdata': {
+                'generated_at': datetime.now().isoformat(),
+                'period': 'weekly'
+            }
+        }), 200
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+@bp.route('/api/earnings/<day>', methods=['GET'])
+def get_earnings_by_day(day):
+    """API endpoint to get earnings statistics for a specific day."""
+    try:
+        day = day.upper()
+        if day not in ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']:
+            return jsonify({
+                'status': 'error',
+                'message': 'Invalid day. Please use three-letter day abbreviation.'
+            }), 400
+            
+        data = generate_sample_data()
+        day_data = {
+            'lower_series': next(item for item in data['lower_series'] if item['day'] == day),
+            'upper_series': next(item for item in data['upper_series'] if item['day'] == day)
+        }
+        
+        return jsonify({
+            'status': 'success',
+            'data': day_data,
+            'graphdata': {
+                'generated_at': datetime.now().isoformat(),
+                'period': 'daily'
+            }
+        }), 200
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
 

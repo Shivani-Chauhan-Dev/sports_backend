@@ -248,63 +248,29 @@ def edit_coach_profile():
         return jsonify({"message": "coach not found"}), 404
 
 
-
-
-
-
-
-
-
-
-
-    
-
-
-@bp.route("/profile", methods=["PUT"], endpoint="edit_coach_profile")
+@bp.route("/profile/<int:coach_id>", methods=["GET"], endpoint="get_coach_profile")
 @token_required
-def edit_coach_profile():
-    current_date=str(datetime.datetime.now())
-    auth_header = request.headers.get('Authorization')
-    payload = auth_header.split(" ")[1]
-    token = jwt.decode(payload, secret_key, algorithms=['HS256'])
-
-    coach_id = token["id"]
-    coach = Coach.query.get(coach_id)
-
-    if coach:
-        data=request.get_json()
-        if data.get("email") != "":
-            coach.email = data.get("email", coach.email)
-        if data.get("coach_name") != "":
-            coach.coach_name = data.get("coach_name", coach.coach_name)
-        if data.get("coach_phone") != "":
-            coach.coach_phone = data.get("coach_phone", coach.coach_phone)
-        if data.get("coach_dob") != "":
-            coach.coach_dob = data.get("coach_dob", coach.coach_dob)
-        if data.get("coach_address") != "":
-            coach.coach_address = data.get("coach_address", coach.coach_address)
-        if data.get("detail_experience") != "":
-            coach.detail_experience = data.get("detail_experience",coach.detail_experience)
-        if data.get("domains") != "":
-            coach.domains = data.get("domains",coach.domains)
-        if data.get("password") != "":
-            password = data.get("password")
-            hashed_password = bcrypt.hashpw(
-                password.encode("utf-8", "ignore"),
-                bcrypt.gensalt()
-            ).decode("utf-8")
-            coach.password = hashed_password
-        coach.lastupdated=current_date
-        try:
-            db.session.commit()
-            return jsonify({"message": "coach updated successfully"}), 200
-        except Exception as e:
-            db.session.rollback()
-            return jsonify({"message": "Failed to update coach"}), 500
-    else:
-        return jsonify({"message": "coach not found"}), 404
-
-
+def get_coach_profile(coach_id):
+    
+    try:
+        coach = Coach.query.get(coach_id)
+        if coach:
+            coach_data = {
+                "id": coach.id,
+                "email": coach.email,
+                "coach_name": coach.coach_name,
+                "coach_phone": coach.coach_phone,
+                "coach_dob": coach.coach_dob,
+                "coach_address": coach.coach_address,
+                "detail_experience": coach.detail_experience,
+                "domains": coach.domains,
+                
+            }
+            return jsonify({"coach": coach_data}), 200
+        else:
+            return jsonify({"message": "Coach not found"}), 404
+    except Exception as e:
+        return jsonify({"message": "An error occurred while fetching the coach profile", "error": str(e)}), 500
 
 
 
@@ -315,3 +281,5 @@ def edit_coach_profile():
 
 
     
+
+

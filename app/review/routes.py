@@ -4,6 +4,7 @@ from model.athlete import Athlete
 from model.coach import Coach
 from database.database import db
 from . import bp
+from sqlalchemy import func, extract
 from sqlalchemy.orm.exc import NoResultFound
 from app.auth.routes import token_required, secret_key
 import jwt
@@ -135,3 +136,46 @@ def delete_review_by_id(id):
     
 
 
+def get_weekly_ratings():
+    # Query to get rating counts by weekday
+    stats = (
+        db.session.query(
+            extract('dow', Review.timestamp).label('weekday'),
+            func.count(Review.id).label('count')
+        )
+        .group_by('weekday')
+        .all()
+    )
+    
+    # Map numeric weekdays to abbreviated names
+    weekdays = {
+        0: 'SUN',
+        1: 'MON',
+        2: 'TUE',
+        3: 'WED',
+        4: 'THU',
+        5: 'FRI',
+        6: 'SAT'
+    }
+    
+    # Format the results
+    result = [
+        {
+            'day': weekdays[int(day)],
+            'count': count
+        }
+        for day, count in stats
+    ]
+    
+    # Sort by day (Sunday first)
+    result.sort(key=lambda x: list(weekdays.values()).index(x['day']))
+    
+    return jsonify(result)
+
+# Flask route example
+@bp.route('/api/ratings/weekly', methods=['GET'])
+def weekly_ratings():
+    try:
+        return get_weekly_ratings()
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500

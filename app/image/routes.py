@@ -57,3 +57,28 @@ def get_all_images():
     except Exception as e:
 
         return jsonify({'error': str(e)}), 500
+    
+
+@bp.route('/get_image/<int:image_id>', methods=['GET'], endpoint="get_image_by_id")
+@token_required
+def get_image_by_id(image_id):
+    """
+    Fetch an image by its ID.
+    """
+    try:
+        # Query the image from the database by ID
+        image = Image.query.get(image_id)
+
+        if not image:
+            return jsonify({'message': 'Image not found'}), 404
+
+        # Return the image details as JSON
+        image_data = {
+            'image_id': image.id,
+            'filename': image.filename,
+        }
+
+        return jsonify({'image': image_data}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
