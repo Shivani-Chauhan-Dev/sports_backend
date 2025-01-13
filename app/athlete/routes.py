@@ -187,7 +187,7 @@ def create_new_athletes():
         return jsonify({"message": "No data provided"}), 400 
 
 
-@bp.route("/profile", methods=["PUT"], endpoint="edit_athelete_profile")
+@bp.route("/atheleteprofile", methods=["PUT"], endpoint="edit_athelete_profile")
 @token_required
 def edit_athelete_profile():
     current_date=str(datetime.datetime.now())
