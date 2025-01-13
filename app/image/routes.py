@@ -13,7 +13,7 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 @bp.route('/upload_image', methods=['POST'],endpoint="create_image")
-@token_required
+# @token_required
 def upload_image():
     if 'image' not in request.files:
         return jsonify({'error': 'No image part'}), 400
@@ -81,4 +81,24 @@ def get_image_by_id(image_id):
         return jsonify({'image': image_data}), 200
 
     except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@bp.route("/delete_image/<int:image_id>",methods=['DELETE'],endpoint="delete_image_by_id")
+# @token_required
+def delete_image(image_id):
+    try:
+        # Query the image from the database by ID
+        image = Image.query.get(image_id)
+
+        if not image:
+            return jsonify({'message': 'Image not found'}), 404
+
+        # Delete the image from the database
+        db.session.delete(image)
+        db.session.commit()
+
+        return jsonify({'message': f'Image with ID {image_id} has been deleted successfully'}), 200
+
+    except Exception as e:
+        db.session.rollback()
         return jsonify({'error': str(e)}), 500

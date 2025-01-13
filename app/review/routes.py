@@ -170,7 +170,7 @@ def get_weekly_ratings():
     # Sort by day (Sunday first)
     result.sort(key=lambda x: list(weekdays.values()).index(x['day']))
     
-    return jsonify(result)
+    return jsonify(result)  
 
 # Flask route example
 @bp.route('/api/ratings/weekly', methods=['GET'])

@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
-# from datetime import datetime
+from datetime import datetime
 import datetime
 from model.athlete import Athlete
 from database.database import db
@@ -87,7 +87,7 @@ def update_athlete_details():
             existing_athlete.address = address
             existing_athlete.alternative_contact = alternative_contact
             existing_athlete.health_height_desc = health_height_desc
-            existing_athlete.created_at = datetime.utcnow()  # Update the creation time
+            # existing_athlete.created_at = datetime.utcnow()  # Update the creation time
 
             # Commit changes to the database
             db.session.commit()
