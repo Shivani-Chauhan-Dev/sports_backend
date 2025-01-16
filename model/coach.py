@@ -29,6 +29,7 @@ class Coach(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    image =db.relationship("Image",backref="coach",lazy=True,)
     def __repr__(self):
         return f"<Coach {self.coach_name} ({self.email})>"
 

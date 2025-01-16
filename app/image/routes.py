@@ -1,11 +1,12 @@
 from database.database import db
 from flask import request,jsonify,send_file
+from model.coach import Coach
 from . import bp
 from database.database import db
 import os
 from model.image import Image
 from app.auth.routes import token_required ,secret_key
-
+import jwt
 
 
 UPLOAD_FOLDER = 'uploads'
@@ -13,8 +14,17 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 @bp.route('/upload_image', methods=['POST'],endpoint="create_image")
-# @token_required
+@token_required
 def upload_image():
+    auth_header = request.headers.get("Authorization")
+    payload = auth_header.split(" ")[1]
+    token = jwt.decode(payload, secret_key, algorithms=['HS256'])
+
+    coach_id = token["id"]
+    coach = Coach.query.get(coach_id)
+    if not coach:
+        return jsonify({'error': 'Coach not found'}), 404
+
     if 'image' not in request.files:
         return jsonify({'error': 'No image part'}), 400
     
@@ -28,11 +38,11 @@ def upload_image():
         file.save(filepath)
 
         # Save the image metadata to the database
-        new_image = Image(filename=file.filename)
+        new_image = Image(filename=file.filename,coach_id=coach_id)
         db.session.add(new_image)
         db.session.commit()
 
-        return jsonify({'message': 'Image uploaded successfully', 'image_id': new_image.id}), 200
+        return jsonify({'message': 'Image uploaded successfully', 'image_id': new_image.id,"coach_id":coach_id}), 200
 
 
 @bp.route('/get_all_images', methods=['GET'],endpoint="get_all_images")
@@ -50,6 +60,7 @@ def get_all_images():
             images_data.append({
                 'image_id': image.id,
                 'filename': image.filename,
+                'coach_id':image.coach_id
             })
 
         return jsonify({'images': images_data}), 200
@@ -102,3 +113,5 @@ def delete_image(image_id):
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
+
+
