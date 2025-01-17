@@ -96,7 +96,7 @@ def get_image_by_id(image_id):
         return jsonify({'error': str(e)}), 500
 
 @bp.route("/delete_image/<int:image_id>",methods=['DELETE'],endpoint="delete_image_by_id")
-# @token_required
+@token_required
 def delete_image(image_id):
     try:
         # Query the image from the database by ID
@@ -116,3 +116,31 @@ def delete_image(image_id):
         return jsonify({'error': str(e)}), 500
 
 
+@bp.route('/get_image_coach/<int:coach_id>', methods=['GET'], endpoint="get_image_by_coach")
+@token_required
+def get_image_by_id(coach_id):
+    """
+    Fetch an image by its ID.
+    """
+    try:
+       
+        # Query the image from the database by ID
+        images = Image.query.filter_by(coach_id=coach_id).all()
+
+        if not images:
+            return jsonify({'message': 'image not found'}), 404
+
+        # Return the image details as JSON
+        image_data = [
+            {
+            'image_id': image.id,
+            'filename': image.filename,
+            'coach_id': image.coach_id
+        }
+        for image in images
+        ]
+
+        return jsonify({'images': image_data}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
