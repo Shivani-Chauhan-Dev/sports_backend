@@ -87,6 +87,7 @@ def get_image_by_id(image_id):
         image_data = {
             'image_id': image.id,
             'filename': image.filename,
+            'coach_id': image.coach_id
         }
 
         return jsonify({'image': image_data}), 200
