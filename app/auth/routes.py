@@ -159,6 +159,48 @@ def logging():
                 return jsonify({"message": "Missing email or password"}), 400
         else:
             return jsonify({"message": "No data provided"}), 400
+        
+
+@bp.route("/reset_password", methods=["POST"], endpoint="reset_password")
+
+def reset_password():
+    data = request.get_json()
+    phone = data.get("phone")
+    email = data.get("email")
+    password = data.get("password")
+    is_coach=data.get("is_coach")
+
+    
+    user = None
+    if is_coach==True:
+        if phone:
+            user = Coach.query.filter_by(phone=phone).first()
+        elif email:
+            user = Coach.query.filter_by(email=email).first()
+    else:
+        if email:
+            # Retrieve user from the database by email
+            user=Athlete.query.filter_by(email=email).first()
+        elif phone:
+            user = Athlete.query.filter_by(phone=phone).first()
+                
+
+    if user:
+        hashed_password= bcrypt.hashpw(
+                    password.encode("utf-8","ignore"),bcrypt.gensalt()
+                ).decode("utf-8")
+
+        # Update user's password
+        user.password=hashed_password
+        db.session.commit()
+        return jsonify({"message": "Password reset successfully"}), 200
+    else:
+        return jsonify({"message": "User not found"}), 404
+
+
+
+
+
 
 
 @bp.route("/get_services/<string:domains>",methods=["GET"])
