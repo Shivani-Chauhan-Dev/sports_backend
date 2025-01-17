@@ -86,15 +86,20 @@ def get_all_reviews():
 
 # Route to get review by ID
 @bp.route('/get_review/<int:id>', methods=['GET'],endpoint="get_review_by_id")
-@token_required
+# @token_required
 def get_review_by_id(id):
     try:
         review = Review.query.get(id)
 
         if not review:
             return jsonify({'success': False, 'message': 'Review not found'}), 404
+         # Assuming the relationship is set up, fetch the athlete's name
+        athlete = Athlete.query.get(review.athlete_id)
 
-        return jsonify({'success': True, 'review': {'id': review.id, 'athlete_id': review.athlete_id, 'coach_id': review.coach_id, 'rating': review.rating, 'comment': review.comment}}), 200
+        if not athlete:
+            return jsonify({'success': False, 'message': 'Athlete not found'}), 404
+
+        return jsonify({'success': True, 'review': {'id': review.id, 'athlete_id': review.athlete_id, 'coach_id': review.coach_id, 'rating': review.rating, 'comment': review.comment, 'athlete_name': athlete.name }}), 200
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
