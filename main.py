@@ -12,18 +12,23 @@ from app.chat import bp as chat_bp
 from app.auth import bp as auth_bp
 from app.verify_otp import bp as verify_otp_bp
 from app.image import bp as image_bp
+from dotenv import load_dotenv
+import os
 
-
+load_dotenv()
 # Function to create the Flask app
 def create_app():
     app = Flask(__name__)
-    app.secret_key = "your_secret_key"
-    app.config['SECRET_KEY'] = 'your_jwt_secret_key'
+    # app.secret_key = "your_secret_key"
+    app.secret_key = os.getenv("SECRET_KEY")
+    # app.config['SECRET_KEY'] = 'your_jwt_secret_key'
+    app.config["SECRET_KEY"] = os.getenv("SECRETS_KEY")
 
     CORS(app)
 
     # Configuring the database URI
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:shivanichauhan@localhost:5000/apps"
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:shivanichauhan@localhost:5000/apps"
     
     # Initialize the database with the app
     db.init_app(app)

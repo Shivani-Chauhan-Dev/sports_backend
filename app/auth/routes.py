@@ -15,11 +15,16 @@ from model.review import Review
 from datetime import datetime, timedelta
 import random
 import datetime
+from dotenv import load_dotenv
+import os
+
 
 
 
 # genratye token
-secret_key="this is secret"
+# secret_key="this is secret"
+secret_key = os.getenv("SECRET_KEYS")
+
 app = Flask(__name__)
 app.config['secret_key'] = secret_key
 serializer = URLSafeTimedSerializer(app.config['secret_key'])
