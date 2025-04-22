@@ -12,6 +12,7 @@ from app.chat import bp as chat_bp
 from app.auth import bp as auth_bp
 from app.verify_otp import bp as verify_otp_bp
 from app.image import bp as image_bp
+from app.aichat import bp as ai_chat
 from dotenv import load_dotenv
 import os
 
@@ -48,6 +49,7 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(verify_otp_bp)
     app.register_blueprint(image_bp)
+    app.register_blueprint(ai_chat)
     return app  # Ensure the app is returned so it can be run
 app = create_app() 
 # Main block to run the app

@@ -21,7 +21,7 @@ def send_otp_email(email):
     sender_password = os.getenv("SENDER_PASSWORD")  # Use an App Password if 2FA is enabled
     
 
-    EMAIL_SUBJECT = "Subject: Your OTP for an Exciting Sports Journey Awaits!"
+    EMAIL_SUBJECT = " Your OTP for an Exciting Sports Journey Awaits!"
 
     # Email body
     body = f"""Dear Customer,
@@ -49,6 +49,7 @@ def send_otp_email(email):
     msg = f"Subject: {EMAIL_SUBJECT}\n\n{body}"
 
     s = smtplib.SMTP("smtp.gmail.com", 587)
+    s.set_debuglevel(1)
     s.starttls()
     s.login(sender_email_id, sender_password)
     s.sendmail(sender_email_id, email, msg)

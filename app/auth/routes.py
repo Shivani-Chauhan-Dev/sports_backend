@@ -23,7 +23,7 @@ import os
 
 # genratye token
 # secret_key="this is secret"
-secret_key = os.getenv("SECRET_KEYS")
+secret_key = os.getenv("SECRET_KEYS", 'default-secret-key')
 
 app = Flask(__name__)
 app.config['secret_key'] = secret_key

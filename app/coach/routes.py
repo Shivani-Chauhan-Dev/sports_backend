@@ -165,7 +165,7 @@ def coach_registration():
         updated_at = current_date
 
         if coach_name and coach_phone and coach_dob and coach_address and email and password and domains and detail_experience:
-            print(email)
+            # print(email)
             existing_user= Coach.query.filter_by(email=email).first()
             if existing_user:
                 return jsonify({"message": "User already exists"}), 400
