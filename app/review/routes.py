@@ -86,7 +86,7 @@ def get_all_reviews():
 
 # Route to get review by ID
 @bp.route('/get_review/<int:id>', methods=['GET'],endpoint="get_review_by_id")
-# @token_required
+@token_required
 def get_review_by_id(id):
     try:
         review = Review.query.get(id)
@@ -142,7 +142,6 @@ def delete_review_by_id(id):
 
 
 def get_weekly_ratings():
-    # Query to get rating counts by weekday
     stats = (
         db.session.query(
             extract('dow', Review.timestamp).label('weekday'),
@@ -151,7 +150,6 @@ def get_weekly_ratings():
         .group_by('weekday')
         .all()
     )
-    
     # Map numeric weekdays to abbreviated names
     weekdays = {
         0: 'SUN',
@@ -162,22 +160,30 @@ def get_weekly_ratings():
         5: 'FRI',
         6: 'SAT'
     }
-    
-    # Format the results
+    weekday_counts = {i: 0 for i in range(7)}
+
+    for day, count in stats:
+        weekday_counts[int(day)] = count
     result = [
         {
-            'day': weekdays[int(day)],
-            'count': count
+            'day': weekdays[i],
+            'count': weekday_counts[i]
         }
-        for day, count in stats
+        for i in range(7)
     ]
+    # result = [
+    #     {
+    #         'day': weekdays[int(day)],
+    #         'count': count
+    #     }
+    #     for day, count in stats
+    # ]
     
     # Sort by day (Sunday first)
     result.sort(key=lambda x: list(weekdays.values()).index(x['day']))
     
     return jsonify(result)  
 
-# Flask route example
 @bp.route('/api/ratings/weekly', methods=['GET'])
 def weekly_ratings():
     try:

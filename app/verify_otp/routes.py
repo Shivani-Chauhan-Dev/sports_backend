@@ -21,7 +21,7 @@ def send_otp_email(email):
     sender_password = os.getenv("SENDER_PASSWORD")  # Use an App Password if 2FA is enabled
     
 
-    EMAIL_SUBJECT = " Your OTP for an Exciting Sports Journey Awaits!"
+    EMAIL_SUBJECT = "Your OTP for an Exciting Sports Journey Awaits!"
 
     # Email body
     body = f"""Dear Customer,
