@@ -16,6 +16,7 @@ from app.aichat import bp as ai_chat
 from app.meetings import bp as meeting
 from dotenv import load_dotenv
 import os
+import logging
 
 load_dotenv()
 # Function to create the Flask app
@@ -26,11 +27,12 @@ def create_app():
     # app.config['SECRET_KEY'] = 'your_jwt_secret_key'
     app.config["SECRET_KEY"] = os.getenv("SECRETS_KEY")
 
-    CORS(app)
+    # CORS(app)
+    CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
     # Configuring the database URI
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
-    # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:shivanichauhan@localhost:5000/apps"
+    # app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:shivanichauhan@localhost:5000/apps"
     
     # Initialize the database with the app
     db.init_app(app)
@@ -52,6 +54,18 @@ def create_app():
     app.register_blueprint(image_bp)
     app.register_blueprint(ai_chat)
     app.register_blueprint(meeting)
+
+    if not os.path.exists('logs'):
+        os.makedirs('logs')
+
+    logging.basicConfig(
+        filename='logs/backend.log',
+        level=logging.INFO,
+        format='%(asctime)s %(levelname)s [%(name)s] %(message)s'
+    )
+
+
+
     return app  # Ensure the app is returned so it can be run
 app = create_app() 
 # Main block to run the app

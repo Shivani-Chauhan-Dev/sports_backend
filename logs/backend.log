@@ -1,0 +1,12 @@
+2025-05-06 12:17:17,237 INFO [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2025-05-06 12:17:17,238 INFO [werkzeug] [33mPress CTRL+C to quit[0m
+2025-05-06 12:17:17,248 INFO [werkzeug]  * Restarting with watchdog (windowsapi)
+2025-05-06 12:17:19,220 WARNING [werkzeug]  * Debugger is active!
+2025-05-06 12:17:19,227 INFO [werkzeug]  * Debugger PIN: 118-048-506
+2025-05-06 12:18:16,407 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 12:18:16] "POST /reset_password HTTP/1.1" 200 -
+2025-05-06 12:40:27,181 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\main.py', reloading
+2025-05-06 12:40:27,185 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\main.py', reloading
+2025-05-06 12:40:27,864 INFO [werkzeug]  * Restarting with watchdog (windowsapi)
+2025-05-06 12:40:30,850 WARNING [werkzeug]  * Debugger is active!
+2025-05-06 12:40:30,856 INFO [werkzeug]  * Debugger PIN: 118-048-506
