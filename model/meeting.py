@@ -10,10 +10,10 @@ class Meeting(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     coach_id = db.Column(db.Integer, db.ForeignKey('coaches.id'), nullable=False)
     athlete_id = db.Column(db.Integer, db.ForeignKey('athletes.id'), nullable=False)
-    title = db.Column(db.String(120), nullable=False)
-    description = db.Column(db.Text, nullable=True)
+    # title = db.Column(db.String(120), nullable=False)
+    # description = db.Column(db.Text, nullable=True)
     start_time = db.Column(db.DateTime, nullable=False)
-    end_time = db.Column(db.DateTime, nullable=False)
+    # end_time = db.Column(db.DateTime, nullable=False)
     status = db.Column(db.String(20), default='pending')  # pending, accepted, declined
 
     coach = db.relationship('Coach',backref=db.backref('meetings', lazy=True) )
@@ -22,10 +22,11 @@ class Meeting(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "title": self.title,
-            "description": self.description,
-            "start_time": self.start_time.isoformat(),
-            "end_time": self.end_time.isoformat(),
+            # "title": self.title,
+            # "description": self.description,
+            "start_time": self.start_time.strftime("%Y-%m-%d %H:%M"),
+            # "start_time": self.start_time.isoformat(),
+            # "end_time": self.end_time.isoformat(),
             "status": self.status,
             "coach": {
                 "id": self.coach.id,

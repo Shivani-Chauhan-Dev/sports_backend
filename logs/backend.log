@@ -10,3 +10,126 @@
 2025-05-06 12:40:27,864 INFO [werkzeug]  * Restarting with watchdog (windowsapi)
 2025-05-06 12:40:30,850 WARNING [werkzeug]  * Debugger is active!
 2025-05-06 12:40:30,856 INFO [werkzeug]  * Debugger PIN: 118-048-506
+2025-05-06 21:30:18,910 INFO [werkzeug] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2025-05-06 21:30:18,910 INFO [werkzeug] [33mPress CTRL+C to quit[0m
+2025-05-06 21:30:19,014 INFO [werkzeug]  * Restarting with watchdog (windowsapi)
+2025-05-06 21:30:20,398 WARNING [werkzeug]  * Debugger is active!
+2025-05-06 21:30:20,404 INFO [werkzeug]  * Debugger PIN: 118-048-506
+2025-05-06 21:30:23,015 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:30:23] "[31m[1mGET /meetings HTTP/1.1[0m" 405 -
+2025-05-06 21:30:23,016 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:30:23] "[33mOPTIONS /meetings/3 HTTP/1.1[0m" 404 -
+2025-05-06 21:30:23,096 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:30:23] "[33mOPTIONS /meetings/3 HTTP/1.1[0m" 404 -
+2025-05-06 21:30:23,098 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:30:23] "[31m[1mGET /meetings HTTP/1.1[0m" 405 -
+2025-05-06 21:30:23,114 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:30:23] "GET /coaches/1/meetings HTTP/1.1" 200 -
+2025-05-06 21:30:23,122 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:30:23] "GET /coaches/1/meetings HTTP/1.1" 200 -
+2025-05-06 21:30:29,784 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:30:29] "[31m[1mGET /meetings HTTP/1.1[0m" 405 -
+2025-05-06 21:30:29,786 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:30:29] "[33mOPTIONS /meetings/3 HTTP/1.1[0m" 404 -
+2025-05-06 21:30:29,793 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:30:29] "[33mOPTIONS /meetings/3 HTTP/1.1[0m" 404 -
+2025-05-06 21:30:29,796 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:30:29] "[31m[1mGET /meetings HTTP/1.1[0m" 405 -
+2025-05-06 21:30:29,798 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:30:29] "GET /coaches/1/meetings HTTP/1.1" 200 -
+2025-05-06 21:30:29,805 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:30:29] "GET /coaches/1/meetings HTTP/1.1" 200 -
+2025-05-06 21:31:11,704 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:31:11] "OPTIONS /meetings HTTP/1.1" 200 -
+2025-05-06 21:31:11,729 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\flask\\app.py', reloading
+2025-05-06 21:31:11,745 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\flask_cors\\extension.py', reloading
+2025-05-06 21:31:11,759 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:31:11] "[35m[1mPOST /meetings HTTP/1.1[0m" 500 -
+2025-05-06 21:31:12,305 INFO [werkzeug]  * Restarting with watchdog (windowsapi)
+2025-05-06 21:31:13,455 WARNING [werkzeug]  * Debugger is active!
+2025-05-06 21:31:13,460 INFO [werkzeug]  * Debugger PIN: 118-048-506
+2025-05-06 21:31:22,527 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 21:31:22] "[33mOPTIONS /meetings/3 HTTP/1.1[0m" 404 -
+2025-05-06 21:59:27,953 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\flask\\sansio\\app.py', reloading
+2025-05-06 21:59:27,989 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\flask\\sansio\\scaffold.py', reloading
+2025-05-06 21:59:28,024 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\flask\\sansio\\blueprints.py', reloading
+2025-05-06 21:59:28,519 INFO [werkzeug]  * Restarting with watchdog (windowsapi)
+2025-05-06 21:59:30,517 WARNING [werkzeug]  * Debugger is active!
+2025-05-06 21:59:30,521 INFO [werkzeug]  * Debugger PIN: 118-048-506
+2025-05-06 22:03:08,106 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\sql\\expression.py', reloading
+2025-05-06 22:03:08,134 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\sql\\functions.py', reloading
+2025-05-06 22:03:08,164 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\orm\\exc.py', reloading
+2025-05-06 22:03:08,195 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\exc.py', reloading
+2025-05-06 22:03:08,261 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\orm\\relationships.py', reloading
+2025-05-06 22:03:08,354 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\orm\\interfaces.py', reloading
+2025-05-06 22:03:08,381 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\orm\\base.py', reloading
+2025-05-06 22:03:08,422 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\sql\\operators.py', reloading
+2025-05-06 22:03:08,458 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\sql\\coercions.py', reloading
+2025-05-06 22:03:08,516 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\util\\deprecations.py', reloading
+2025-05-06 22:03:09,237 INFO [werkzeug]  * Restarting with watchdog (windowsapi)
+2025-05-06 22:03:10,463 WARNING [werkzeug]  * Debugger is active!
+2025-05-06 22:03:10,467 INFO [werkzeug]  * Debugger PIN: 118-048-506
+2025-05-06 22:03:14,691 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\flask\\typing.py', reloading
+2025-05-06 22:03:14,705 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\werkzeug\\sansio\\response.py', reloading
+2025-05-06 22:03:14,732 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\werkzeug\\datastructures\\__init__.py', reloading
+2025-05-06 22:03:14,752 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\werkzeug\\datastructures\\headers.py', reloading
+2025-05-06 22:03:15,841 INFO [werkzeug]  * Restarting with watchdog (windowsapi)
+2025-05-06 22:03:16,998 WARNING [werkzeug]  * Debugger is active!
+2025-05-06 22:03:17,003 INFO [werkzeug]  * Debugger PIN: 118-048-506
+2025-05-06 22:06:59,650 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\meetings\\routes.py', reloading
+2025-05-06 22:06:59,653 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\meetings\\routes.py', reloading
+2025-05-06 22:06:59,653 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\meetings\\routes.py', reloading
+2025-05-06 22:07:00,752 INFO [werkzeug]  * Restarting with watchdog (windowsapi)
+2025-05-06 22:07:01,917 WARNING [werkzeug]  * Debugger is active!
+2025-05-06 22:07:01,921 INFO [werkzeug]  * Debugger PIN: 118-048-506
+2025-05-06 22:07:33,894 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 22:07:33] "[35m[1mPOST /meetings HTTP/1.1[0m" 201 -
+2025-05-06 22:08:19,597 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 22:08:19] "[33mOPTIONS /meetings/3 HTTP/1.1[0m" 404 -
+2025-05-06 22:08:19,598 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 22:08:19] "[31m[1mGET /meetings HTTP/1.1[0m" 405 -
+2025-05-06 22:08:19,604 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 22:08:19] "[33mOPTIONS /meetings/3 HTTP/1.1[0m" 404 -
+2025-05-06 22:08:19,608 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 22:08:19] "[31m[1mGET /meetings HTTP/1.1[0m" 405 -
+2025-05-06 22:08:19,609 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 22:08:19] "GET /coaches/1/meetings HTTP/1.1" 200 -
+2025-05-06 22:08:19,616 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 22:08:19] "GET /coaches/1/meetings HTTP/1.1" 200 -
+2025-05-06 22:08:48,105 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 22:08:48] "OPTIONS /meetings HTTP/1.1" 200 -
+2025-05-06 22:08:48,127 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 22:08:48] "[35m[1mPOST /meetings HTTP/1.1[0m" 500 -
+2025-05-06 22:08:50,165 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 22:08:50] "[33mOPTIONS /meetings/3 HTTP/1.1[0m" 404 -
+2025-05-06 22:09:11,462 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\database\\database.py', reloading
+2025-05-06 22:09:11,463 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\model\\wallet.py', reloading
+2025-05-06 22:09:11,463 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\model\\survey.py', reloading
+2025-05-06 22:09:11,464 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\wallet\\__init__.py', reloading
+2025-05-06 22:09:11,464 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\model\\sport.py', reloading
+2025-05-06 22:09:11,464 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\model\\session.py', reloading
+2025-05-06 22:09:11,464 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\wallet\\routes.py', reloading
+2025-05-06 22:09:11,465 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\model\\review.py', reloading
+2025-05-06 22:09:11,465 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\model\\otp_email.py', reloading
+2025-05-06 22:09:11,466 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\model\\meeting.py', reloading
+2025-05-06 22:09:11,466 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\verify_otp\\__init__.py', reloading
+2025-05-06 22:09:11,467 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\model\\image.py', reloading
+2025-05-06 22:09:11,467 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\verify_otp\\routes.py', reloading
+2025-05-06 22:09:11,468 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\model\\coach.py', reloading
+2025-05-06 22:09:11,468 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\model\\chat.py', reloading
+2025-05-06 22:09:11,468 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\survey\\__init__.py', reloading
+2025-05-06 22:09:11,468 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\model\\athlete.py', reloading
+2025-05-06 22:09:11,469 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\survey\\routes.py', reloading
+2025-05-06 22:09:11,469 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\sport\\__init__.py', reloading
+2025-05-06 22:09:11,469 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\sport\\routes.py', reloading
+2025-05-06 22:09:11,469 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\chat\\__init__.py', reloading
+2025-05-06 22:09:11,471 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\chat\\routes.py', reloading
+2025-05-06 22:09:11,471 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\review\\__init__.py', reloading
+2025-05-06 22:09:11,471 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\review\\routes.py', reloading
+2025-05-06 22:09:11,471 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\auth\\__init__.py', reloading
+2025-05-06 22:09:11,471 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\auth\\routes.py', reloading
+2025-05-06 22:09:11,472 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\payment\\__init__.py', reloading
+2025-05-06 22:09:11,472 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\athlete\\__init__.py', reloading
+2025-05-06 22:09:11,472 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\athlete\\routes.py', reloading
+2025-05-06 22:09:11,472 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\meetings\\__init__.py', reloading
+2025-05-06 22:09:11,473 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\aichat\\__init__.py', reloading
+2025-05-06 22:09:11,473 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\aichat\\routes.py', reloading
+2025-05-06 22:09:11,473 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\image\\__init__.py', reloading
+2025-05-06 22:09:11,473 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\image\\routes.py', reloading
+2025-05-06 22:09:11,473 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\coach\\__init__.py', reloading
+2025-05-06 22:09:11,474 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\app\\coach\\routes.py', reloading
+2025-05-06 22:09:12,216 INFO [werkzeug]  * Restarting with watchdog (windowsapi)
+2025-05-06 22:09:14,798 WARNING [werkzeug]  * Debugger is active!
+2025-05-06 22:09:14,806 INFO [werkzeug]  * Debugger PIN: 118-048-506
+2025-05-06 22:11:31,365 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 22:11:31] "OPTIONS /meetings HTTP/1.1" 200 -
+2025-05-06 22:11:31,389 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 22:11:31] "[35m[1mPOST /meetings HTTP/1.1[0m" 500 -
+2025-05-06 22:11:35,421 INFO [werkzeug] 127.0.0.1 - - [06/May/2025 22:11:35] "[35m[1mPOST /meetings HTTP/1.1[0m" 500 -
+2025-05-06 22:12:24,430 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\__init__.py', reloading
+2025-05-06 22:12:24,449 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\schema.py', reloading
+2025-05-06 22:12:24,476 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\sql\\schema.py', reloading
+2025-05-06 22:12:24,572 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\sql\\base.py', reloading
+2025-05-06 22:12:24,609 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\util\\__init__.py', reloading
+2025-05-06 22:12:24,635 INFO [werkzeug]  * Detected change in 'C:\\Users\\91801\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\sqlalchemy\\util\\langhelpers.py', reloading
+2025-05-06 22:12:24,866 INFO [werkzeug]  * Restarting with watchdog (windowsapi)
+2025-05-06 22:12:26,072 WARNING [werkzeug]  * Debugger is active!
+2025-05-06 22:12:26,077 INFO [werkzeug]  * Debugger PIN: 118-048-506
+2025-05-06 22:13:07,815 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\main.py', reloading
+2025-05-06 22:13:07,816 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\main.py', reloading
+2025-05-06 22:13:07,817 INFO [werkzeug]  * Detected change in 'D:\\sports_backend\\main.py', reloading
+2025-05-06 22:13:08,606 INFO [werkzeug]  * Restarting with watchdog (windowsapi)

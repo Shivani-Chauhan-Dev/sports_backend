@@ -28,7 +28,8 @@ def create_app():
     app.config["SECRET_KEY"] = os.getenv("SECRETS_KEY")
 
     # CORS(app)
-    CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+    CORS(app, resources={r"/*": {"origins": "*"}})
+    # CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
     # Configuring the database URI
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
@@ -55,14 +56,14 @@ def create_app():
     app.register_blueprint(ai_chat)
     app.register_blueprint(meeting)
 
-    if not os.path.exists('logs'):
-        os.makedirs('logs')
+    # if not os.path.exists('logs'):
+    #     os.makedirs('logs')
 
-    logging.basicConfig(
-        filename='logs/backend.log',
-        level=logging.INFO,
-        format='%(asctime)s %(levelname)s [%(name)s] %(message)s'
-    )
+    # logging.basicConfig(
+    #     filename='logs/backend.log',
+    #     level=logging.INFO,
+    #     format='%(asctime)s %(levelname)s [%(name)s] %(message)s'
+    # )
 
 
 
