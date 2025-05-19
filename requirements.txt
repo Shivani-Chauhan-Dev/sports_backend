@@ -66,3 +66,6 @@ yarl==1.9.4
 python-dotenv==1.0.1
 gunicorn==23.0.0
 together==1.4.1
+websockets==10.4
+
+
