@@ -70,3 +70,25 @@ def delete_chat_by_id(chat_id):
         return jsonify(success=True, message="Chat deleted successfully"), 200
     except Exception as e:
         return jsonify(success=False, message=str(e)), 500
+    
+@bp.route("/chat/history", methods=["GET"])
+def chat_history():
+    athlete_id = request.args.get("athlete_id")
+    coach_id = request.args.get("coach_id")
+
+    if not athlete_id or not coach_id:
+        return jsonify({"error": "Missing athlete_id or coach_id"}), 400
+
+    chats = Chat.query.filter_by(
+        athlete_id=athlete_id,
+        coach_id=coach_id
+    ).order_by(Chat.timestamp).all()
+
+    return jsonify([
+        {
+            "id": chat.id,
+            "message": chat.message,
+            "timestamp": chat.timestamp.isoformat(),
+            "sender": "athlete" if int(chat.athlete_id) == int(athlete_id) else "coach"
+        } for chat in chats
+    ])

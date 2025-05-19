@@ -79,6 +79,7 @@ def get_all_meetings():
 
 @bp.route('/coaches/<int:coach_id>/meetings', methods=['GET'])
 def get_coach_meetings(coach_id):
+    # meetings = Meeting.query.filter_by(coach_id=coach_id,status='accepted').order_by(Meeting.start_time).all()
     meetings = Meeting.query.filter_by(coach_id=coach_id).order_by(Meeting.start_time).all()
 
     return jsonify([meeting.to_dict() for meeting in meetings]), 200
@@ -125,3 +126,12 @@ def update_meeting_status():
     meeting.status = new_status
     db.session.commit()
     return jsonify(meeting.to_dict()), 200
+
+
+@bp.route('/athelete/<int:athelete_id>/meetings', methods=['GET'])
+def get_athelete_meetings(athelete_id):
+    # meetings = Meeting.query.filter_by(coach_id=coach_id,status='accepted').order_by(Meeting.start_time).all()
+    meetings = Meeting.query.filter_by(athelete_id_id=athelete_id).order_by(Meeting.start_time).all()
+
+    return jsonify([meeting.to_dict() for meeting in meetings]), 200
+
