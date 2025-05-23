@@ -14,6 +14,7 @@ from app.verify_otp import bp as verify_otp_bp
 from app.image import bp as image_bp
 from app.aichat import bp as ai_chat
 from app.meetings import bp as meeting
+from app.pdf import bp as pdf
 from dotenv import load_dotenv
 import os
 import logging
@@ -32,8 +33,8 @@ def create_app():
     # CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
     # Configuring the database URI
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
-    # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:shivanichauhan@localhost:5000/apps"
+    # app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:shivanichauhan@localhost:5000/apps"
     
     # Initialize the database with the app
     db.init_app(app)
@@ -55,6 +56,7 @@ def create_app():
     app.register_blueprint(image_bp)
     app.register_blueprint(ai_chat)
     app.register_blueprint(meeting)
+    app.register_blueprint(pdf)
 
     # if not os.path.exists('logs'):
     #     os.makedirs('logs')
