@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from model.chat import Chat
 from database.database import db
 from . import bp
+from model.athlete import Athlete
 from sqlalchemy.orm.exc import NoResultFound
 
 
@@ -92,3 +93,13 @@ def chat_history():
             "sender": "athlete" if int(chat.athlete_id) == int(athlete_id) else "coach"
         } for chat in chats
     ])
+
+
+@bp.route('/chat_list/<int:coach_id>', methods=['GET'])
+def chat_list(coach_id):
+    # Fetch athletes the coach has chatted with
+    results = db.session.query(Athlete.id, Athlete.name).join(Chat, Chat.athlete_id == Athlete.id)\
+        .filter(Chat.coach_id == coach_id).distinct().all()
+    
+    athletes = [{"id": a.id, "name": a.name} for a in results]
+    return jsonify({"athletes": athletes}), 200
