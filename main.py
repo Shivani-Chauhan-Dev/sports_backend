@@ -4,7 +4,7 @@ from database.database import db
 from flask_cors import CORS
 from app.coach import bp as coach_bp
 from app.athlete import bp as athlete_bp
-from app.sport import bp as sport_bp
+from app.sport import bp as services_bp
 from app.review import bp as review_bp
 from app.survey import bp as survey_bp
 from app.wallet import bp as wallet_bp
@@ -33,8 +33,8 @@ def create_app():
     # CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
     # Configuring the database URI
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
-    # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:shivanichauhan@localhost:5000/apps"
+    # app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:shivanichauhan@localhost:5000/apps"
     
     # Initialize the database with the app
     db.init_app(app)
@@ -46,7 +46,7 @@ def create_app():
     # Register blueprints
     app.register_blueprint(coach_bp)
     app.register_blueprint(athlete_bp)
-    app.register_blueprint(sport_bp)
+    app.register_blueprint(services_bp)
     app.register_blueprint(review_bp)
     app.register_blueprint(survey_bp)
     app.register_blueprint(wallet_bp)

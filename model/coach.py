@@ -2,6 +2,9 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy.exc import IntegrityError
 from database.database import db
+from model.services import coach_services
+
+
 
 
 class Coach(db.Model):
@@ -18,8 +21,7 @@ class Coach(db.Model):
     domains = db.Column(db.String(100))
     detail_experience = db.Column(db.Text)
     # coach_rating = db.Column(db.Float, default=0)
-    # coach_languages = db.Column(db.ARRAY(db.String))
-      # Storing as a list of strings
+    # coach_languages = db.Column(db.ARRAY(db.String)) # Storing as a list of strings
     coach_languages = db.Column(db.String(160)) 
     coach_age = db.Column(db.String(10))
     gender = db.Column(db.String(10))
@@ -30,6 +32,7 @@ class Coach(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     image =db.relationship("Image",backref="coach",lazy=True,)
+    services = db.relationship("Services",secondary='coach_services' ,backref="coach", lazy=True)
     def __repr__(self):
         return f"<Coach {self.coach_name} ({self.email})>"
 
@@ -81,8 +84,11 @@ class Coach(db.Model):
         try:
             db.session.add(coach)
             db.session.commit()
-            return True
+            return coach 
+            # return True
         except IntegrityError:
-            return False
+            db.session.rollback()
+            return None
+            # return False
     
      

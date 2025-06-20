@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
-from model.sport import Sport
+# from model.sport import Sport
+from model.services import Services
 from database.database import db
 from . import bp
 from app.auth.routes import token_required,secret_key
@@ -10,105 +11,192 @@ from app.auth.routes import token_required,secret_key
 
 
 
-@bp.route('/create_sport', methods=['POST'],endpoint="create_sport")
+# @bp.route('/create_sport', methods=['POST'],endpoint="create_sport")
+# @token_required
+# def create_sport():
+#     try:
+#         data = request.get_json()
+#         sport_name = data.get('sport_name')
+
+#         # Check if a sport with the same name already exists (case-insensitive)
+#         existing_sport = Sport.query.filter(Sport.sport_name.ilike(sport_name)).first()
+#         if existing_sport:
+#             return jsonify({'success': False, 'message': 'Sport already exists'}), 400
+
+#         # Create a new sport
+#         sport = Sport(sport_name=sport_name)
+#         db.session.add(sport)
+#         db.session.commit()
+
+#         return jsonify({'success': True, 'sport': {'id': sport.id, 'sport_name': sport.sport_name}}), 201
+#     except IntegrityError as e:
+#         db.session.rollback()  # Rollback the transaction in case of error
+#         return jsonify({'success': False, 'message': 'Error creating sport: ' + str(e)}), 500
+#     except Exception as e:
+#         return jsonify({'success': False, 'message': str(e)}), 500
+
+# # Route to get sports by name
+# @bp.route('/get_sports/<string:sport_name>', methods=['GET'],endpoint="getsport_by_name")
+# @token_required
+# def get_sports_by_name(sport_name):
+#     try:
+#         # Find sports by name (case-insensitive)
+#         sports = Sport.query.filter(Sport.sport_name.ilike(f'%{sport_name}%')).all()
+
+#         if not sports:
+#             return jsonify({'success': False, 'message': 'No sports found with the provided name'}), 404
+
+#         return jsonify({'success': True, 'sports': [{'id': sport.id, 'sport_name': sport.sport_name} for sport in sports]}), 200
+#     except Exception as e:
+#         return jsonify({'success': False, 'message': str(e)}), 500
+
+# # Route to get all sports
+# @bp.route('/get_all_sports', methods=['GET'],endpoint="get_all_sports")
+# @token_required
+# def get_all_sports():
+#     try:
+#         sports = Sport.query.all()
+
+#         if not sports:
+#             return jsonify({'success': False, 'message': 'No sports found'}), 404
+
+#         return jsonify({'success': True, 'sports': [{'id': sport.id, 'sport_name': sport.sport_name} for sport in sports]}), 200
+#     except Exception as e:
+#         return jsonify({'success': False, 'message': str(e)}), 500
+
+# # Route to get a sport by ID
+# @bp.route('/get_sport/<int:id>', methods=['GET'],endpoint="getsport_by_id")
+# @token_required
+# def get_sport_by_id(id):
+#     try:
+#         sport = Sport.query.get(id)
+
+#         if not sport:
+#             return jsonify({'success': False, 'message': 'Sport not found'}), 404
+
+#         return jsonify({'success': True, 'sport': {'id': sport.id, 'sport_name': sport.sport_name}}), 200
+#     except Exception as e:
+#         return jsonify({'success': False, 'message': str(e)}), 500
+
+# # Route to update a sport by ID
+# @bp.route('/update_sport/<int:id>', methods=['PUT'],endpoint="update_sports")
+# @token_required
+# def update_sport_by_id(id):
+#     try:
+#         data = request.get_json()
+#         sport_name = data.get('sport_name')
+
+#         sport = Sport.query.get(id)
+#         if not sport:
+#             return jsonify({'success': False, 'message': 'Sport not found'}), 404
+
+#         sport.sport_name = sport_name
+#         db.session.commit()
+
+#         return jsonify({'success': True, 'sport': {'id': sport.id, 'sport_name': sport.sport_name}}), 200
+#     except Exception as e:
+#         return jsonify({'success': False, 'message': str(e)}), 500
+
+# # Route to delete a sport by ID
+# @bp.route('/delete_sport/<int:id>', methods=['DELETE'],endpoint="delete_sport")
+# @token_required
+# def delete_sport_by_id(id):
+#     try:
+#         sport = Sport.query.get(id)
+
+#         if not sport:
+#             return jsonify({'success': False, 'message': 'Sport not found'}), 404
+
+#         db.session.delete(sport)
+#         db.session.commit()
+
+#         return jsonify({'success': True, 'message': 'Sport deleted successfully'}), 200
+#     except Exception as e:
+#         return jsonify({'success': False, 'message': str(e)}), 500
+
+# @bp.route('/get_all_services', methods=['GET'], endpoint='get_all_services')
+# # @token_required
+# def get_all_services():
+#     try:
+#         services = Services.query.all()
+#         if not services:
+#             return jsonify({'success': False, 'message': 'No services found'}), 404
+
+#         service_list = []
+#         for s in services:
+#             service_list.append({
+#                 "id": s.id,
+#                 "services": s.services,
+#                 "label": s.services.title(),  # Assuming label is the same as services
+#                 "created_at": s.created_at.isoformat() if s.created_at else None,
+#                 "updated_at": s.updated_at.isoformat() if s.updated_at else None,
+#             })
+
+#         # return jsonify({'success': True, 'services': service_list}), 200
+#     except Exception as e:
+#         return jsonify({'success': False, 'message': str(e)}), 500
+
+
+@bp.route('/get_all_services', methods=['GET'], endpoint='get_all_services')
+@token_required 
+def get_all_services():
+    try:
+        services = Services.query.all()
+        if not services:
+            return jsonify([]), 200 
+
+        return jsonify([s.to_dict() for s in services]), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500  
+
+
+
+
+@bp.route('/get_service/<int:id>', methods=['GET'], endpoint='get_service_by_id')
 @token_required
-def create_sport():
+def get_service_by_id(id):
+    try:
+        service = Services.query.get(id)
+        if not service:
+            return jsonify({'success': False, 'message': 'Service not found'}), 404
+
+        return jsonify({'success': True, 'service': service.to_dict()}), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+
+@bp.route('/update_service/<int:id>', methods=['PUT'], endpoint='update_service')
+@token_required
+def update_service_by_id(id):
     try:
         data = request.get_json()
-        sport_name = data.get('sport_name')
+        new_name = data.get('services')
 
-        # Check if a sport with the same name already exists (case-insensitive)
-        existing_sport = Sport.query.filter(Sport.sport_name.ilike(sport_name)).first()
-        if existing_sport:
-            return jsonify({'success': False, 'message': 'Sport already exists'}), 400
+        service = Services.query.get(id)
+        if not service:
+            return jsonify({'success': False, 'message': 'Service not found'}), 404
 
-        # Create a new sport
-        sport = Sport(sport_name=sport_name)
-        db.session.add(sport)
+        service.services = new_name
         db.session.commit()
 
-        return jsonify({'success': True, 'sport': {'id': sport.id, 'sport_name': sport.sport_name}}), 201
-    except IntegrityError as e:
-        db.session.rollback()  # Rollback the transaction in case of error
-        return jsonify({'success': False, 'message': 'Error creating sport: ' + str(e)}), 500
+        return jsonify({'success': True, 'service': service.to_dict()}), 200
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
-# Route to get sports by name
-@bp.route('/get_sports/<string:sport_name>', methods=['GET'],endpoint="getsport_by_name")
+
+@bp.route('/delete_service/<int:id>', methods=['DELETE'], endpoint='delete_service')
 @token_required
-def get_sports_by_name(sport_name):
+def delete_service_by_id(id):
     try:
-        # Find sports by name (case-insensitive)
-        sports = Sport.query.filter(Sport.sport_name.ilike(f'%{sport_name}%')).all()
+        service = Services.query.get(id)
+        if not service:
+            return jsonify({'success': False, 'message': 'Service not found'}), 404
 
-        if not sports:
-            return jsonify({'success': False, 'message': 'No sports found with the provided name'}), 404
-
-        return jsonify({'success': True, 'sports': [{'id': sport.id, 'sport_name': sport.sport_name} for sport in sports]}), 200
-    except Exception as e:
-        return jsonify({'success': False, 'message': str(e)}), 500
-
-# Route to get all sports
-@bp.route('/get_all_sports', methods=['GET'],endpoint="get_all_sports")
-@token_required
-def get_all_sports():
-    try:
-        sports = Sport.query.all()
-
-        if not sports:
-            return jsonify({'success': False, 'message': 'No sports found'}), 404
-
-        return jsonify({'success': True, 'sports': [{'id': sport.id, 'sport_name': sport.sport_name} for sport in sports]}), 200
-    except Exception as e:
-        return jsonify({'success': False, 'message': str(e)}), 500
-
-# Route to get a sport by ID
-@bp.route('/get_sport/<int:id>', methods=['GET'],endpoint="getsport_by_id")
-@token_required
-def get_sport_by_id(id):
-    try:
-        sport = Sport.query.get(id)
-
-        if not sport:
-            return jsonify({'success': False, 'message': 'Sport not found'}), 404
-
-        return jsonify({'success': True, 'sport': {'id': sport.id, 'sport_name': sport.sport_name}}), 200
-    except Exception as e:
-        return jsonify({'success': False, 'message': str(e)}), 500
-
-# Route to update a sport by ID
-@bp.route('/update_sport/<int:id>', methods=['PUT'],endpoint="update_sports")
-@token_required
-def update_sport_by_id(id):
-    try:
-        data = request.get_json()
-        sport_name = data.get('sport_name')
-
-        sport = Sport.query.get(id)
-        if not sport:
-            return jsonify({'success': False, 'message': 'Sport not found'}), 404
-
-        sport.sport_name = sport_name
+        # Automatically removes links from coach_services table
+        db.session.delete(service)
         db.session.commit()
 
-        return jsonify({'success': True, 'sport': {'id': sport.id, 'sport_name': sport.sport_name}}), 200
-    except Exception as e:
-        return jsonify({'success': False, 'message': str(e)}), 500
-
-# Route to delete a sport by ID
-@bp.route('/delete_sport/<int:id>', methods=['DELETE'],endpoint="delete_sport")
-@token_required
-def delete_sport_by_id(id):
-    try:
-        sport = Sport.query.get(id)
-
-        if not sport:
-            return jsonify({'success': False, 'message': 'Sport not found'}), 404
-
-        db.session.delete(sport)
-        db.session.commit()
-
-        return jsonify({'success': True, 'message': 'Sport deleted successfully'}), 200
+        return jsonify({'success': True, 'message': 'Service deleted successfully'}), 200
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
