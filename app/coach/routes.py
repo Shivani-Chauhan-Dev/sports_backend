@@ -235,16 +235,19 @@ def coach_registration():
     db.session.add(new_coach)
     db.session.flush()
 
-    for service_name in data["domains"]:
-        cleaned_service = service_name.strip().lower()
-        service = Services.query.filter_by(services=cleaned_service).first()
+    cleaned_service = data["domains"].strip().lower()
+    service = Services.query.filter_by(services=cleaned_service).first()
 
-        if not service:
-            service = Services(services=cleaned_service)
-            db.session.add(service)
-            db.session.flush()
+    # for service_name in data["domains"]:
+    #     cleaned_service = service_name.strip().lower()
+    #     service = Services.query.filter_by(services=cleaned_service).first()
 
-        new_coach.services.append(service)
+    if not service:
+        service = Services(services=cleaned_service)
+        db.session.add(service)
+        db.session.flush()
+
+    new_coach.services.append(service)
 
     db.session.commit()
     return jsonify({"message": "Coach registered successfully"}), 201
@@ -334,20 +337,21 @@ def edit_coach_profile():
     # Handle domain (service) update
     domains = data.get("domains", [])
     if domains:
+        cleaned_service = domains.strip().lower()
         # Clear old services
         coach.services.clear()
 
         # Add updated services
-        for service_name in domains:
-            cleaned_service = service_name.strip().lower()
-            existing_service = Services.query.filter_by(services=cleaned_service).first()
 
-            if not existing_service:
-                existing_service = Services(services=cleaned_service)
-                db.session.add(existing_service)
-                db.session.flush()
+            
+        existing_service = Services.query.filter_by(services=cleaned_service).first()
 
-            coach.services.append(existing_service)
+        if not existing_service:
+            existing_service = Services(services=cleaned_service)
+            db.session.add(existing_service)
+            db.session.flush()
+
+        coach.services.append(existing_service)
 
     coach.lastupdated = current_date
 
