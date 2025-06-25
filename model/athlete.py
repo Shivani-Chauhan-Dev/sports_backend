@@ -22,6 +22,22 @@ class Athlete(db.Model):
     def __repr__(self):
         return f"<Athlete {self.name} ({self.email})>"
     
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "phone": self.phone,
+            "name": self.name,
+            "dob": self.dob,
+            "address": self.address,
+            "detail_health": self.detail_health,
+            # "alternative_contact": self.alternative_contact,
+            # "health_height_desc": self.health_height_desc,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
+        }
+    
+
     @staticmethod
     def create_athlete(payload):
         athlete=Athlete(
