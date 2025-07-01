@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy.exc import IntegrityError
 from database.database import db
-from model.services import coach_services
+# from model.services import coach_services
 
 
 
@@ -32,7 +32,7 @@ class Coach(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     image =db.relationship("Image",backref="coach",lazy=True,)
-    services = db.relationship("Services",secondary='coach_services' ,backref="coach", lazy=True)
+    # services = db.relationship("Services",secondary='coach_services' ,backref="coach", lazy=True)
     def __repr__(self):
         return f"<Coach {self.coach_name} ({self.email})>"
 

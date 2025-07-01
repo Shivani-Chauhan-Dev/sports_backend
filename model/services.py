@@ -4,11 +4,11 @@ from database.database import db
 
 
 
-coach_services = db.Table(
-    'coach_services',
-    db.Column('coach_id', db.Integer, db.ForeignKey('coaches.id'), primary_key=True),
-    db.Column('service_id', db.Integer, db.ForeignKey('services.id'), primary_key=True)
-)
+# coach_services = db.Table(
+#     'coach_services',
+#     db.Column('coach_id', db.Integer, db.ForeignKey('coaches.id'), primary_key=True),
+#     db.Column('service_id', db.Integer, db.ForeignKey('services.id'), primary_key=True)
+# )
 
 class Services(db.Model):
     __tablename__ = 'services'
