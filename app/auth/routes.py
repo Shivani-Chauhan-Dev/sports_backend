@@ -339,56 +339,56 @@ def get_earnings_by_day(day):
 
 
 
-@bp.route("/user/login", methods=["POST"])
-def user_login():
-    data = request.get_json()
+# @bp.route("/user/login", methods=["POST"])
+# def user_login():
+#     data = request.get_json()
 
-    if not data or not data.get("email") or not data.get("password"):
-        return jsonify({"message": "Email and password are required"}), 400
+#     if not data or not data.get("email") or not data.get("password"):
+#         return jsonify({"message": "Email and password are required"}), 400
 
-    email = data["email"]
-    password = data["password"]
+#     email = data["email"]
+#     password = data["password"]
 
-    user = None
-    role = None
+#     user = None
+#     role = None
 
 
-    user = Coach.query.filter_by(email=email).first()
-    if user:
-        role = "coach"
+#     user = Coach.query.filter_by(email=email).first()
+#     if user:
+#         role = "coach"
 
-    # If not found in Coach, check Athlete
-    if not user:
-        user = Athlete.query.filter_by(email=email).first()
-        if user:
-            role = "athlete"
+#     # If not found in Coach, check Athlete
+#     if not user:
+#         user = Athlete.query.filter_by(email=email).first()
+#         if user:
+#             role = "athlete"
 
-    # If user not found in both
-    if not user:
-        return jsonify({"message": "Invalid email or password"}), 401
+#     # If user not found in both
+#     if not user:
+#         return jsonify({"message": "Invalid email or password"}), 401
 
-    # Validate password
-    if not bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
-        return jsonify({"message": "Invalid email or password"}), 401
+#     # Validate password
+#     if not bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
+#         return jsonify({"message": "Invalid email or password"}), 401
 
-    # Generate JWT token
-    token_payload = {
-        "id": user.id,
-        "role": role,
-        "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1)
-    }
-    token = jwt.encode(token_payload, secret_key, algorithm="HS256")
+#     # Generate JWT token
+#     token_payload = {
+#         "id": user.id,
+#         "role": role,
+#         "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1)
+#     }
+#     token = jwt.encode(token_payload, secret_key, algorithm="HS256")
 
-    return jsonify({
-        "message": "Login successful",
-        "token": token,
-        "user": {
-            "id": user.id,
-            "role": role,
-            "email": user.email,
-            "name": getattr(user, "coach_name", getattr(user, "name", ""))  # coach_name for Coach, name for Athlete
-        }
-    }), 200
+#     return jsonify({
+#         "message": "Login successful",
+#         "token": token,
+#         "user": {
+#             "id": user.id,
+#             "role": role,
+#             "email": user.email,
+#             "name": getattr(user, "coach_name", getattr(user, "name", ""))  # coach_name for Coach, name for Athlete
+#         }
+#     }), 200
 
 
 
