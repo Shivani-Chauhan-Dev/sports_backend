@@ -35,8 +35,10 @@ def create_app():
     # Configuring the database URI
     # app.config["SQLALCHEMY_DATABASE_URI"] =os.getenv("DATABASE_URL")
     # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:shivanichauhan@localhost:5000/apps"
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://PostgresAdmin:Bua5G{nL(E@athlete-postgresql.cji80g4c8gw9.ap-south-1.rds.amazonaws.com:5432/athaispace"
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://PostgresAdmin:Bua5G{nL(E@athlete-postgresql.cji80g4c8gw9.ap-south-1.rds.amazonaws.com:5432/athaispace"
 
-    app.config["SQLALCHEMY_DATABASE_URI"] ="postgresql://spoort_tech_user:wtbL47js4yy01p5uASTtKIOsxTQ1CMl8@dpg-d1ii64adbo4c73f791rg-a.singapore-postgres.render.com:5432/spoort_tech"
+    app.config["SQLALCHEMY_DATABASE_URI"] ="postgresql://sport_tech_uf6r_user:5dw9fkQzcPPJJX6y8Vfyog2FWv02B1ud@dpg-d26fp28gjchc73apaae0-a.singapore-postgres.render.com:5432/sport_tech_uf6r"
     
     # Initialize the database with the app
     db.init_app(app)
