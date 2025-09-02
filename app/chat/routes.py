@@ -90,7 +90,8 @@ def chat_history():
             "id": chat.id,
             "message": chat.message,
             "timestamp": chat.timestamp.isoformat(),
-            "sender": "athlete" if int(chat.athlete_id) == int(athlete_id) else "coach"
+            "sender": chat.sender
+            # "sender": "athlete" if int(chat.athlete_id) == int(athlete_id) else "coach"
         } for chat in chats
     ])
 

@@ -10,59 +10,8 @@ from . import bp
 import bcrypt
 import jwt
 
-@bp.route('/create_athlete', methods=['POST'])
-def create_athlete():
-    try:
-        # Check if the user is an admin
-        # if 'role' not in session or session['role'] != 'admin':
-            # return jsonify({'error': 'Unauthorized: Only admins can create athletes.'}), 403
-
-        data = request.get_json()
-        name = data.get('name')
-        phone = data.get('phone')
-        dob = data.get('dob')
-        address = data.get('address')
-        alternative_contact = data.get('alternative_contact')
-        health_height_desc = data.get('health_height_desc')
-        
-        email = data.get('email')  # Assuming email is stored in session/
-
-        # Check if an athlete with the same email already exists
-        existing_athlete = Athlete.query.filter_by(email=email).first()
-        if existing_athlete:
-            return jsonify({'error': 'Athlete with this email already exists.'}), 400
-
-        # Create a new athlete instance
-        new_athlete = Athlete(
-            email=email,
-            name=name,
-            phone=phone,
-            dob=dob,
-            address=address,
-            alternative_contact=alternative_contact,
-            health_height_desc=health_height_desc
-        )
-
-        # Save the athlete to the database
-        db.session.add(new_athlete)
-        db.session.commit()
-
-        return jsonify({
-            'message': 'Athlete created successfully',
-            'athlete_id': new_athlete.id,
-            'athlete': {
-                'email': new_athlete.email,
-                'name': new_athlete.name
-            }
-        }), 201
-    except IntegrityError as e:
-        db.session.rollback()  # Rollback the transaction in case of error
-        return jsonify({'error': 'Integrity error: ' + str(e)}), 400
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
 
 
-# Controller function to update athlete details
 @bp.route('/update_athlete', methods=['PUT'],endpoint="update_athlete")
 @token_required
 def update_athlete_details():
@@ -106,8 +55,6 @@ def update_athlete_details():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
-# Controller function to get all athletes
 @bp.route('/get_all_athletes', methods=['GET'],endpoint="get_athelete")
 @token_required
 def get_all_athletes():
